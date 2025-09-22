@@ -1,0 +1,14 @@
+# Default: the TGS Lead owns everything by default
+
+- @RaiderAerospaceSociety25-26/tgs-leads
+
+# --- Guarded areas that only Maintainers can approve ---
+
+# CI & repo automation
+
+/.github/\* @RaiderAerospaceSociety25-26/maintainers
+
+# Legal/security metadata
+
+/LICENSE @RaiderAerospaceSociety25-26/maintainers
+/SECURITY.md @RaiderAerospaceSociety25-26/maintainers
