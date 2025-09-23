@@ -1,0 +1,60 @@
+name: Bug report
+description: Report something that isn’t working as expected
+title: "[BUG] <short summary>"
+labels: ["type:bug", "needs-triage"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect instead?
+      placeholder: "The IMU returns NaN values when..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the bug?
+      placeholder: |
+        1. Flash firmware v0.2.0
+        2. Power on system
+        3. Observe boot log
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: "The IMU should return valid accel/gyro data"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: Attach logs, screenshots, or error messages
+      placeholder: "Paste serial logs here..."
+
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Subsystem
+      options:
+        - Firmware
+        - Hardware
+        - Docs
+        - CI
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 (urgent/blocking)
+        - P1 (important)
+        - P2 (nice to have)
