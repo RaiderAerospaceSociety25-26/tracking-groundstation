@@ -1,0 +1,34 @@
+name: Docs task
+description: Work related to documentation or contributor guides
+title: "[DOCS] <short summary>"
+labels: ["type:docs", "needs-triage"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What needs to be documented or updated?
+      placeholder: "Write setup guide for VSCode + PlatformIO"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: How do we know the docs are complete?
+      placeholder: |
+        - Covers all steps (install, build, run)
+        - Tested on fresh machine
+        - Markdown committed to /docs/
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 (urgent/blocking)
+        - P1 (important)
+        - P2 (nice to have)
