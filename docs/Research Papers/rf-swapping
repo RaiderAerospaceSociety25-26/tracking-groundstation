@@ -1,0 +1,58 @@
+# RF Swapping
+
+_Author: Nathan Usifoh, Landon Williams — 2025-06-28
+
+## Abstract
+
+This investigates Dual Link (RS) configurations, focusing on systems that utilize two complementary antenna paths. The study outlines how each link supports distinct roles—such as uplink command and downlink data—while providing redundancy and failover capability. Findings emphasize the importance of dual-link architecture for maintaining robust command communication and continuous telemetry during dynamic flight conditions.
+
+
+---
+
+## Background
+
+Introduces Dual-link RF systems use two complementary antenna paths—typically one directional and one omnidirectional—to maintain robust communication in dynamic environments. Swapping between these links ensures continuous telemetry and command integrity, especially during signal fades or orientation changes.
+
+---
+
+## Methods
+
+I explored dual-link RF swapping methods, I reviewed a mix of technical articles, antenna datasheets, academic PDFs, and instructional videos so i could compare some antenna types understand switching logic.
+
+
+
+
+## Results
+Here are some relevant data is provided for the Dynamic RF Switching Research best suited to the rocket. Reasoning
+
+| Methods        | Cost | Functionality                       | Pros  | Cons | How To Guide |
+| -------------- | ---- | ----------------------------------- | ------------ | ------------ |------------------ |
+| Manual Switching | $10–$30  | Controller deciding when to switch | Should be simple logic to write and should give you control over timing and conditions          | rocket will move very fast so high possibility of human error | Get a microcontroller and select a physical switch and connect to GPIO write logic for it to read Finally test and Adjust |
+| Signal Strength Thresholding/RSSI | $10  | The system Monitors Signal Quality and switches when it drops below a Threshold  | Autonomous and Reactive, and can be tuned for sensitivity          | Thresholds must be well calibrated      | Use RF modules with RSSI output. Then Sample RSSI Periodically |
+| Keep Alive Monitoring | $100–$300  | System Periodically sends pings/packet switches to verify RF Link functionality    | Confirms actual communication unlike RSSI systems | Adds latency so a wait time before switching in and out and Interferences may cause unnecessary switching | Use modules like RFD900x or arduino. Then create/ code the logic for it be sure to test and balance latency and responsiveness. |
+| Dual Reciver with priority Logic | $10-$50 | Both links are active and the system Continuously choose the better link based on system and priority        | Both links are active so if one fails the other doesn't halt comms and there should be no latency         | Requires 2 RF Receivers so two more processing paths and alot of power      | Run two receivers in parallel. Continuously evaluate link quality (RSSI, packet loss, latency). |
+| Hardware RF Switch | $30-$80  | A Physical Switch toggles antenna feed between your transceiver and 2 antennas based on control systems   | Does not require packet based telemetry, switching is immedate and can be controlled by using high and low settings          | It can wear our relays and cause a switching noise and bad timing can cause signal loss      | Use SPDT RF switch (e.g., Mini-Circuits ZFSW-2-46+) then control by GPIO/Logic Level then Create/Code the High low Logic. |
+
+---
+
+## Discussion
+
+Dual-link RF signal switching methods range in complexity as well as response time, but there aretwo that are leaning in our favor. Signal Strength Thresholding Switching allows fast, automatic switching basedon the current quality of the link, desirable on fast-moving vehicles. Implemented correctly, thesystem would be able to change the sensitivity to the environment as well as maintain commandcomms during the duration of the flight.
+
+Another viable option is hardware RF switching, where there is a physical relay that changes based on the decision of the microcontroller. It is a very easy-to-use method that also switches very quickly, but it can only execute a single link at a time and may induce wear or timing issues. Although both are within our objectives, Signal Strength Thresholding is a more appropriate and robust solution. After the antennas are all set up, we can begin writing the threshold logic code and debugging it under simulated flying situations.
+
+---
+
+## References
+
+(Comparing: Highly Directional & Omni View Antenna): https://www.rfwireless-world.com/terminology/isotropic-vs-omnidirectional-vs-directional-antenna-types
+
+(General RF Swapping): https://apps.dtic.mil/sti/tr/pdf/ADA413101.pdf (Look at pages 18-20,)
+
+(Signal Strength Thresholding): https://help.ui.com/hc/en-us/articles/221321728-Understanding-and-Implementing-Minimum-RSSI
+
+(Keep Alive Monitoring): https://combataxis.com/telemetry-and-radio-frequency-monitoring/
+
+(Hardware RF Switching): https://www.nwengineeringllc.com/article/antenna-switches-and-antenna-tuning-in-rf-pcbs.php
+### Misc.
+(Coaxial Switches): https://apps.dtic.mil/sti/tr/pdf/ADA413101.pdf (Page 43)
